@@ -1,0 +1,20 @@
+{% block html %}
+<!doctype html>
+<html style="{% block html_style %}{% endblock %}" lang="en">
+{% endblock %}
+
+<head>
+	<title>{% block title %} {{ app_title }} {% endblock %}</title>
+    {% block header %}{% endblock %}
+    
+    {% block stylesheet %}{% endblock %}
+    
+	{% block javascript %}{% endblock %}
+        
+</head>
+<body {% block body_attr %}{% endblock %}>
+{% block body %}{% endblock %}
+{% block bodyOutPopup %}{% endblock %}
+{% block bodyOut %}{% endblock %}
+</body>
+</html>

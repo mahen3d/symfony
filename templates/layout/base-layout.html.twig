@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block html_style %}font-size: 0.920rem;{% endblock %}
+
+{% block header %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+{% endblock %} 
+
+{% block stylesheet %}
+
+	<!-- page specific plugin styles -->
+	{% block pageStyle %}{% endblock %}
+	
+	<!-- Theme style -->
+	{{ encore_entry_link_tags('app') }}
+
+	
+	<!-- inline styles related to this page -->
+	{% block pageInStyle %}{% endblock %}
+
+	<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+{% endblock %} 
+
+{% block javascripts%} 
+	{% block pagesScript %}{% endblock%} 
+{% endblock %} 
+
+{% block body_attr %} class=" {% block body_class %}{% endblock %}" {% block anguler %}{% endblock %}{% endblock %} 
+
+{% block body %}
+
+<div id="data-panel" style="display: none;" data-baseurl="{{ path('DBApp_index') }}" data-assetUrl="{{ asset('') }}" data-url="{{ app.request.scheme ~  '://' ~  app.request.host }}"></div>
+{% endblock %} 
+
+{% block bodyOut %}
+
+	{% block bodyModal %}
+
+	{% endblock %}
+
+
+	
+	{% block topJavascript %}{% endblock %}
+	
+	{% block bodyJavascript %}{% endblock %}
+
+	{{ encore_entry_script_tags('app') }}
+
+	{% block bodyOutPagesScript %}{% endblock %}
+{% endblock %} 
+
+{% block bodyCommon %} {% endblock %}

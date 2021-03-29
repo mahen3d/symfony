@@ -1,0 +1,111 @@
+{% extends "layout/base-layout.html.twig" %}
+
+{% block title %}Customer index{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-dark bg-dark fixed-top">
+	<a class="navbar-brand">CSEARCH</a>
+</nav>
+<div class="container db-main">
+	<nav aria-label="breadcrumb">
+  		<ol class="breadcrumb">
+    		<li class="breadcrumb-item"><a href="#">CSEARCH</a></li>
+    		<li class="breadcrumb-item active" aria-current="page">Customers</li>
+  		</ol>
+	</nav>
+	
+	<div class="card mt-4 mb-3 db-no-border">
+  		<div class="card-body p-0">
+
+			{{ form(form) }}
+
+			<hr />
+
+
+  			<form method="post" class="form-inline pb-3">
+  				<div class="form-group ml-2">
+  					<input name="searchForm[search]" value="{{ searchForm.search | default('') }}" type="text" class="form-control" placeholder="Search">
+				</div>
+				
+  				<div class="form-group ml-2">
+  					<input name="searchForm[activeAmount]" value="{{ searchForm.activeAmount | default('') }}" type="number" class="form-control" placeholder="Min order amount">
+				</div>
+				
+  				<div class="form-group ml-2">
+  					<input name="searchForm[minOrder]" value="{{ searchForm.minOrder | default('') }}" type="number" class="form-control" placeholder="Min no of order">
+				</div>
+				
+				{% if customerStatusList is defined and customerStatusList is not empty %}
+					<div class="form-group ml-2">
+						<select name="searchForm[customerStatus]" class="form-control">
+							<option value="">-- All --</option>
+    	                    {% for customerStatus in customerStatusList %}
+    	                    	<option value="{{ customerStatus.id }}" {% if searchForm.customerStatus | default('') == customerStatus.id %} selected="selected" {% endif %}>{{ customerStatus.name }}</option>
+    	                    {% endfor %}
+						</select>
+                    </div>
+				{% endif %}
+  				
+  				<div class="form-group ml-2">
+  					<button type="submit" class="btn btn-outline-primary">Search</button>
+				</div>
+				{% if totalCustomer is not defined or totalCustomer is empty or totalCustomer == false %}
+      				<div class="form-group ml-2">
+      					<a href="{{ path('customer_dummy_data') }}" class="btn btn-outline-info">Add Dummy Data</a>
+    				</div>
+      			{% endif %}
+  			</form>
+  		</div>
+	</div>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Amount(Last 3 Month)</th>
+                <th>No Of Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+        	{% if customers is defined and customers is not empty %}
+                {% for customer in customers %}
+                    <tr class="
+                        {% if customer.code == 'RE' %} 
+                        	table-danger 
+                        {% elseif customer.code == 'AC' and customer.totalOrders > 0 and customer.totalOrderAmount is empty %}
+                        	table-warning
+                        {% elseif customer.code == 'AC' and customer.totalOrders > 0 and customer.totalOrderAmount is not empty %}
+                        	table-success
+                        {% endif %}
+                    ">
+                        <td>{{ customer.id }}</td>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.customerStatusName }}</td>
+                        <td>{{ customer.totalOrderAmount }}</td>
+                        <td>{{ customer.allOrders }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No records found</td>
+                </tr>
+			{% endif %}
+        </tbody>
+    </table>
+</div>
+	{% block javascripts %}
+		{{ parent() }}
+		{{ encore_entry_script_tags('customer_index') }}
+	{% endblock %}
+<footer class="container d-flex justify-content-center">
+    <p>&copy; 2019-{{ 'now' | date('Y') }} CSEARCH. <a href="#" class="">Privacy</a> · <a href="#">Terms</a></p>
+  </footer>
+{% endblock %}
+
+

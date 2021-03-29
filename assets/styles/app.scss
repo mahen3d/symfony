@@ -1,0 +1,22 @@
+@import '~bootstrap';
+@import "~font-awesome";
+
+body {
+    background-color: aliceblue;
+    padding-top: 70px;
+}
+
+.db-main {
+    min-height: 600px;
+}
+
+footer {
+    border-top: 1px solid #d5d5d5;
+    padding-top: 16px;
+}
+
+.db-no-border {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
