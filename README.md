@@ -1,4 +1,12 @@
-# csearch
+# Symfony 5 Base Skelaton - MVC Framework
+
+Technology Stack Included
+ - MVC 
+ - Twig
+ - Webpack
+ - Encore
+ - MySQL
+ - Events
 
 How to install project
 
